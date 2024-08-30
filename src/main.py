@@ -126,10 +126,10 @@ async def chat_command(
                 )
                 return
 
-            # embed = discord.Embed(
-            #     description=f"<@{user.id}> wants to chat! 🤖💬",
-            #     color=discord.Color.green(),
-            # )
+            embed = discord.Embed(
+                description=f"<@{user.id}> wants to chat! 🤖💬",
+                color=discord.Color.green(),
+            )
             # embed.add_field(name="model", value=model)
             # embed.add_field(name="temperature", value=temperature, inline=True)
             # embed.add_field(name="max_tokens", value=max_tokens, inline=True)
