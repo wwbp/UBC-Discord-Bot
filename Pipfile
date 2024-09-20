@@ -9,6 +9,8 @@ python-dotenv = "*"
 dacite = "*"
 pyyaml = "*"
 openai = "*"
+ipykernel = "*"
+pandas = "*"
 
 [dev-packages]
 
