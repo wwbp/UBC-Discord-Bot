@@ -40,7 +40,7 @@ intents.message_content = True
 
 client = discord.Client(intents=intents)
 tree = discord.app_commands.CommandTree(client)
-thread_data = defaultdict()
+thread_data_config = ThreadConfig(model='gpt-4o-mini', max_tokens=512, temperature=1.0)
 
 
 @client.event
@@ -164,14 +164,12 @@ async def chat_command(
             reason="gpt-bot",
             auto_archive_duration=60,
         )
-        thread_data[thread.id] = ThreadConfig(
-            model=model, max_tokens=max_tokens, temperature=temperature
-        )
+        
         async with thread.typing():
             # fetch completion
             messages = [Message(user=user.name, text=message)]
             response_data = await generate_completion_response(
-                messages=messages, user=user, thread_config=thread_data[thread.id]
+                messages=messages, user=user, thread_config=thread_data_config
             )
             # send the result
             await process_response(
@@ -290,7 +288,7 @@ async def on_message(message: DiscordMessage):
             response_data = await generate_completion_response(
                 messages=channel_messages,
                 user=message.author,
-                thread_config=thread_data[thread.id],
+                thread_config=thread_data_config,
             )
 
         if is_last_message_stale(
