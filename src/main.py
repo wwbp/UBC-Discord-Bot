@@ -215,10 +215,10 @@ async def on_message(message: DiscordMessage):
             # ignore this thread
             return
 
-        if thread.message_count > MAX_THREAD_MESSAGES:
-            # too many messages, no longer going to reply
-            await close_thread(thread=thread)
-            return
+        # if thread.message_count > MAX_THREAD_MESSAGES:
+        #     # too many messages, no longer going to reply
+        #     await close_thread(thread=thread)
+        #     return
 
         # moderate the message
         flagged_str, blocked_str = moderate_message(
