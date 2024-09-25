@@ -1,7 +1,13 @@
+import re
 from dataclasses import dataclass
 from typing import Optional, List
 
 SEPARATOR_TOKEN = "<|endoftext|>"
+
+
+def sanitize_name(name: str) -> str:
+    """Sanitize user names to only include valid characters."""
+    return re.sub(r'[^a-zA-Z0-9_-]', '_', name)
 
 
 @dataclass(frozen=True)
@@ -10,7 +16,7 @@ class Message:
     text: Optional[str] = None
 
     def render(self):
-        result = self.user + ":"
+        result = sanitize_name(self.user) + ":"
         if self.text is not None:
             result += " " + self.text
         return result
