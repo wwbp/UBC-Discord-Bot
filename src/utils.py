@@ -2,7 +2,7 @@ from constants import MAX_CHARS_PER_REPLY_MSG, INACTIVATE_THREAD_PREFIX
 import discord
 from typing import Optional, List
 from discord import Message as DiscordMessage
-from base import Message
+from base import Message, sanitize_name
 from constants import (
     ALLOWED_SERVER_IDS,
 )
@@ -23,7 +23,7 @@ def discord_message_to_message(message: DiscordMessage) -> Optional[Message]:
             return Message(user=field.name, text=field.value)
     else:
         if message.content:
-            return Message(user=message.author.name, text=message.content)
+            return Message(user=sanitize_name(message.author.name), text=message.content)
     return None
 
 
